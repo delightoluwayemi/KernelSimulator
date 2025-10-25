@@ -1,0 +1,14 @@
+/Users/bamideleoluwayemi/Documents/allThingsCode/C#/KernelSimulator/obj/Debug/net9.0/KernelSimulator.GeneratedMSBuildEditorConfig.editorconfig
+/Users/bamideleoluwayemi/Documents/allThingsCode/C#/KernelSimulator/obj/Debug/net9.0/KernelSimulator.AssemblyInfoInputs.cache
+/Users/bamideleoluwayemi/Documents/allThingsCode/C#/KernelSimulator/obj/Debug/net9.0/KernelSimulator.AssemblyInfo.cs
+/Users/bamideleoluwayemi/Documents/allThingsCode/C#/KernelSimulator/obj/Debug/net9.0/KernelSimulator.csproj.CoreCompileInputs.cache
+/Users/bamideleoluwayemi/Documents/allThingsCode/C#/KernelSimulator/bin/Debug/net9.0/KernelSimulator
+/Users/bamideleoluwayemi/Documents/allThingsCode/C#/KernelSimulator/bin/Debug/net9.0/KernelSimulator.deps.json
+/Users/bamideleoluwayemi/Documents/allThingsCode/C#/KernelSimulator/bin/Debug/net9.0/KernelSimulator.runtimeconfig.json
+/Users/bamideleoluwayemi/Documents/allThingsCode/C#/KernelSimulator/bin/Debug/net9.0/KernelSimulator.dll
+/Users/bamideleoluwayemi/Documents/allThingsCode/C#/KernelSimulator/bin/Debug/net9.0/KernelSimulator.pdb
+/Users/bamideleoluwayemi/Documents/allThingsCode/C#/KernelSimulator/obj/Debug/net9.0/KernelSimulator.dll
+/Users/bamideleoluwayemi/Documents/allThingsCode/C#/KernelSimulator/obj/Debug/net9.0/refint/KernelSimulator.dll
+/Users/bamideleoluwayemi/Documents/allThingsCode/C#/KernelSimulator/obj/Debug/net9.0/KernelSimulator.pdb
+/Users/bamideleoluwayemi/Documents/allThingsCode/C#/KernelSimulator/obj/Debug/net9.0/KernelSimulator.genruntimeconfig.cache
+/Users/bamideleoluwayemi/Documents/allThingsCode/C#/KernelSimulator/obj/Debug/net9.0/ref/KernelSimulator.dll
