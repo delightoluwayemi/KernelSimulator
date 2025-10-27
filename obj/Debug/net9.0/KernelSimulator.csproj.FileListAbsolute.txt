@@ -12,3 +12,4 @@
 /Users/bamideleoluwayemi/Documents/allThingsCode/C#/KernelSimulator/obj/Debug/net9.0/KernelSimulator.pdb
 /Users/bamideleoluwayemi/Documents/allThingsCode/C#/KernelSimulator/obj/Debug/net9.0/KernelSimulator.genruntimeconfig.cache
 /Users/bamideleoluwayemi/Documents/allThingsCode/C#/KernelSimulator/obj/Debug/net9.0/ref/KernelSimulator.dll
+/Users/bamideleoluwayemi/Documents/allThingsCode/C#/KernelSimulator/obj/Debug/net9.0/KernelSimulator.sourcelink.json
