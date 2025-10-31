@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("KernelSimulator")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9413f271b5a9d1fe70352f9f7ac3111fc92a967a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a3493adaede124d1149ba7d1309ea9f3aa9ea602")]
 [assembly: System.Reflection.AssemblyProductAttribute("KernelSimulator")]
 [assembly: System.Reflection.AssemblyTitleAttribute("KernelSimulator")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

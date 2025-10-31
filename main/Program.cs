@@ -6,6 +6,7 @@ using System.Reflection.Metadata;
 using System.Runtime.CompilerServices;
 using System.Text;
 using Microsoft.VisualBasic;
+using System.Collections.Generic;
 
 namespace KernelSimulator
 {
@@ -15,7 +16,7 @@ namespace KernelSimulator
 
         public List<Process> processes = new List<Process>();
         public int processCount;
-        public List<Process> readyList = new List<Process>();
+        public Queue<Process> readyQueue = new Queue<Process>();
         public List<Process> waitingList = new List<Process>();
         public List<Process> terminatedList = new List<Process>();
         public bool processRunning = false;
@@ -39,12 +40,22 @@ namespace KernelSimulator
             }
             processCount = processes.Count;
             return processes;
-        }
+        }/*
+        public void changeState(Process process, States oldState, States newState){
+            switch (oldState){
+                case States.NEW:
+                process.state = States.READY; //newState
+                kernel.readyList.Add(process);
+            }
+            var outputMessage = String.Format("{0},{1},{2}, {3} ",kernel.timer, process.Pid, oldState, process.state);
+            outputLog.Add(outputMessage);
+        }*/
+
         static void Main(string[] args)
         {
             var terminatedCount = 0;
 
-            var path = @"test_files/test_case_1.csv";
+            var path = @"/Users/bamideleoluwayemi/Documents/Documents - Bamidele’s MacBook Pro/allThingsCode/C#/KernelSimulator/test_files/test_case_1.csv";
             var kernel = new Kernel();
             kernel.loadProcess(path);
             /*foreach (var process in kernel.processes)
@@ -72,7 +83,7 @@ namespace KernelSimulator
                     {
                         var oldState = process.state;
                         process.state = States.READY;
-                        kernel.readyList.Add(process);
+                        kernel.readyQueue.Enqueue(process);
                         var outputMessage = String.Format("{0},{1},{2}, {3} ",kernel.timer, process.Pid, oldState, process.state);
                         outputLog.Add(outputMessage);
                     }
@@ -85,7 +96,7 @@ namespace KernelSimulator
                     {
                         var oldState = kernel.waitingList[i].state;
                         kernel.waitingList[i].state = States.READY;
-                        kernel.readyList.Add(kernel.waitingList[i]);
+                        kernel.readyQueue.Enqueue(kernel.waitingList[i]);
                         var outputMessage = String.Format("{0},{1},{2}, {3} ", kernel.timer, kernel.waitingList[i].Pid, oldState, kernel.waitingList[i].state);
                         kernel.waitingList.Remove(kernel.waitingList[i]);
                         outputLog.Add(outputMessage);
@@ -131,14 +142,17 @@ namespace KernelSimulator
                 //move the process from ready to running
                 if (kernel.processRunning == false)
                 {
-                    if (kernel.readyList.Count ==0)
+                    //this is possibly when nothing running, nothing in the waitlist is done or is empty, or nothing in new list or arrival time not met yet
+                    if (kernel.readyQueue.Count ==0)
                     {
                         kernel.timer++;
                         continue;
                     }
                     else
                     {
-                        var runningProcess = kernel.readyList[0];
+                        var runningProcess = kernel.readyQueue.Peek();
+
+                        //idea was to match the process in the ready queue and then changs its state in the process queue
                         foreach (var process in kernel.processes)
                         {
                             if (process == runningProcess)
@@ -146,11 +160,11 @@ namespace KernelSimulator
                                 kernel.processRunning = true;
                                 var oldState = process.state;
                                 process.state = States.RUNNING;
-                                kernel.readyList.RemoveAt(0);
                                 var outputMessage = String.Format("{0},{1},{2}, {3} ", kernel.timer, process.Pid, oldState, process.state);
                                 outputLog.Add(outputMessage);
                             }
                         }
+                        kernel.readyQueue.Dequeue();
                     }
                 }
                 terminatedCount = kernel.terminatedList.Count;
