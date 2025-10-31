@@ -9,29 +9,6 @@ using Microsoft.VisualBasic;
 
 namespace KernelSimulator
 {
-    public class Process
-    {
-        public int Pid { get; set; }
-        public int ArrivalTime { get; set; }
-        public int TotalCPUTime { get; set; }
-        public int IoFrequency { get; set; }
-        public int IoDuration { get; set; }
-
-        public States state;
-
-        public int cpuRunTIme;
-        public int waitingTime;
-
-    }
-
-    public enum States
-    {
-        NEW,
-        READY,
-        RUNNING,
-        WAITING,
-        TERMINATED
-    }
 
     public class Kernel
     {
@@ -97,7 +74,6 @@ namespace KernelSimulator
                         process.state = States.READY;
                         kernel.readyList.Add(process);
                         var outputMessage = String.Format("{0},{1},{2}, {3} ",kernel.timer, process.Pid, oldState, process.state);
-                        Console.WriteLine(outputMessage);
                         outputLog.Add(outputMessage);
                     }
                 }
@@ -111,13 +87,12 @@ namespace KernelSimulator
                         kernel.waitingList[i].state = States.READY;
                         kernel.readyList.Add(kernel.waitingList[i]);
                         var outputMessage = String.Format("{0},{1},{2}, {3} ", kernel.timer, kernel.waitingList[i].Pid, oldState, kernel.waitingList[i].state);
-                        Console.WriteLine(outputMessage);
                         kernel.waitingList.Remove(kernel.waitingList[i]);
                         outputLog.Add(outputMessage);
                     }
                     else
                     {
-                        kernel.waitingList[i].waitingTime += 1;
+                        ++kernel.waitingList[i].waitingTime;
                     }
                 }
 
@@ -132,10 +107,9 @@ namespace KernelSimulator
                             process.state = States.TERMINATED;
                             kernel.terminatedList.Add(process);
                             var outputMessage = String.Format("{0},{1},{2}, {3}, {4} ", kernel.timer, process.Pid, oldState, process.state, process.TotalCPUTime);
-                            Console.WriteLine(outputMessage);
                             outputLog.Add(outputMessage);
                             kernel.processRunning = false;
-                            terminatedCount += 1;
+                            terminatedCount++;
                         }
                         //i might get away with removing the else if
                         else if ((process.IoFrequency < process.TotalCPUTime) && (process.IoFrequency > 0))
@@ -146,12 +120,11 @@ namespace KernelSimulator
                                 process.state = States.WAITING;
                                 kernel.waitingList.Add(process);
                                 var outputMessage = String.Format("{0},{1},{2}, {3} ", kernel.timer, process.Pid, oldState, process.state);
-                                Console.WriteLine(outputMessage);
                                 outputLog.Add(outputMessage);
                                 kernel.processRunning = false;
                             }
                         }
-                            process.cpuRunTIme += 1;
+                            process.cpuRunTIme++;
                     }
                 }
 
@@ -160,7 +133,7 @@ namespace KernelSimulator
                 {
                     if (kernel.readyList.Count ==0)
                     {
-                        kernel.timer += 1;
+                        kernel.timer++;
                         continue;
                     }
                     else
@@ -175,19 +148,18 @@ namespace KernelSimulator
                                 process.state = States.RUNNING;
                                 kernel.readyList.RemoveAt(0);
                                 var outputMessage = String.Format("{0},{1},{2}, {3} ", kernel.timer, process.Pid, oldState, process.state);
-                                Console.WriteLine(outputMessage);
                                 outputLog.Add(outputMessage);
                             }
                         }
                     }
                 }
                 terminatedCount = kernel.terminatedList.Count;
-                kernel.timer += 1;
+                ++kernel.timer;
             }
-            /*foreach (var line in outputLog)
+            foreach (var line in outputLog)
             {
                 Console.WriteLine(line);
-            }*/
+            }
 
         }
     }

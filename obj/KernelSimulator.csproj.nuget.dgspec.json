@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/bamideleoluwayemi/Documents/allThingsCode/C#/KernelSimulator/KernelSimulator.csproj": {}
+    "/Users/bamideleoluwayemi/Documents/Documents - Bamidele’s MacBook Pro/allThingsCode/C#/KernelSimulator/KernelSimulator.csproj": {}
   },
   "projects": {
-    "/Users/bamideleoluwayemi/Documents/allThingsCode/C#/KernelSimulator/KernelSimulator.csproj": {
+    "/Users/bamideleoluwayemi/Documents/Documents - Bamidele’s MacBook Pro/allThingsCode/C#/KernelSimulator/KernelSimulator.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/bamideleoluwayemi/Documents/allThingsCode/C#/KernelSimulator/KernelSimulator.csproj",
+        "projectUniqueName": "/Users/bamideleoluwayemi/Documents/Documents - Bamidele’s MacBook Pro/allThingsCode/C#/KernelSimulator/KernelSimulator.csproj",
         "projectName": "KernelSimulator",
-        "projectPath": "/Users/bamideleoluwayemi/Documents/allThingsCode/C#/KernelSimulator/KernelSimulator.csproj",
+        "projectPath": "/Users/bamideleoluwayemi/Documents/Documents - Bamidele’s MacBook Pro/allThingsCode/C#/KernelSimulator/KernelSimulator.csproj",
         "packagesPath": "/Users/bamideleoluwayemi/.nuget/packages/",
-        "outputPath": "/Users/bamideleoluwayemi/Documents/allThingsCode/C#/KernelSimulator/obj/",
+        "outputPath": "/Users/bamideleoluwayemi/Documents/Documents - Bamidele’s MacBook Pro/allThingsCode/C#/KernelSimulator/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/bamideleoluwayemi/.nuget/NuGet/NuGet.Config"
