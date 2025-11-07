@@ -11,8 +11,8 @@
 
             public States state;
 
-            public int cpuRunTIme;
-            public int waitingTime;
+            public int CpuRunTIme { get; set; }
+            public int WaitingTime { get; set; }
 
         public Process() { }
 

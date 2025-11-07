@@ -36,6 +36,8 @@ namespace KernelSimulator
                     IoDuration = int.Parse(columns[4]),
                     state = States.NEW
                 };
+                process.CpuRunTIme = process.TotalCPUTime;
+                process.WaitingTime = process.IoDuration;
                 processes.Add(process);
             }
             processCount = processes.Count;
@@ -44,7 +46,7 @@ namespace KernelSimulator
         static void Main(string[] args)
         {
             var terminatedCount = 0;
-            var path = @"test_files/test_case_1.csv";
+            var path = @"/Users/bamideleoluwayemi/Documents/Documents - Bamidele’s MacBook Pro/allThingsCode/C#/KernelSimulator/test_files/test_case_1.csv";
 
             var kernel = new Kernel();
             kernel.loadProcess(path);
@@ -62,8 +64,9 @@ namespace KernelSimulator
 
             Console.WriteLine(String.Format("Time of transition, Pid, Old State, New State"));
 
-            //FCFS
             var outputLog = new List<string>();
+
+            //FCFS
             while (terminatedCount != kernel.processCount)
             {
                 //move the process from NEW to READY
@@ -79,7 +82,7 @@ namespace KernelSimulator
                 //move the process from waiting to ready
                 for (var i =0; i<kernel.waitingList.Count; i++)
                 {
-                    if (kernel.waitingList[i].waitingTime == kernel.waitingList[i].IoDuration)
+                    if (kernel.waitingList[i].WaitingTime == 0)
                     {
                         outputLog.Add(kernel.waitingList[i].changeState(kernel.waitingList[i], kernel.waitingList[i].state, States.READY, kernel.timer));
                         kernel.readyQueue.Enqueue(kernel.waitingList[i]);
@@ -87,7 +90,7 @@ namespace KernelSimulator
                     }
                     else
                     {
-                        ++kernel.waitingList[i].waitingTime;
+                        --kernel.waitingList[i].WaitingTime;
                     }
                 }
 
@@ -96,24 +99,24 @@ namespace KernelSimulator
                 {
                     if (process.state == States.RUNNING)
                     {
-                        if (process.TotalCPUTime == process.cpuRunTIme)
+                        //decrement has to come before i/o call check to reduce CPu wastage
+                        process.CpuRunTIme--;
+                        if (process.CpuRunTIme == 0)
                         {
                             outputLog.Add(process.changeState(process, process.state, States.TERMINATED, kernel.timer));
                             kernel.terminatedList.Add(process);
                             kernel.processRunning = false;
                             terminatedCount++;
                         }
-                        //i might get away with removing the else if
                         else if ((process.IoFrequency < process.TotalCPUTime) && (process.IoFrequency > 0))
                         {
-                            if ((process.cpuRunTIme > 0) && (process.cpuRunTIme % process.IoFrequency == 0))
+                            if ((process.CpuRunTIme > 0) && (process.CpuRunTIme % process.IoFrequency == 0) && (process.CpuRunTIme != process.TotalCPUTime))
                             {
                                 outputLog.Add(process.changeState(process, process.state, States.WAITING, kernel.timer));
                                 kernel.waitingList.Add(process);
                                 kernel.processRunning = false;
                             }
                         }
-                            process.cpuRunTIme++;
                     }
                 }
 
