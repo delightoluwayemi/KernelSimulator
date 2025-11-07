@@ -22,7 +22,7 @@ A C#-based simulation of CPU scheduling and process management inspired by opera
 - Track important metrics such as throughput etc.
 
 ## Getting Started
-
+- make sure to change the path on line 48 to your specific path!!
 ```bash
 git clone https://github.com/delightoluwayemi/KernelSimulator.git
 cd KernelSimulator

@@ -14,7 +14,17 @@
             public int cpuRunTIme;
             public int waitingTime;
 
-            public Process(){}
+        public Process() { }
 
+        public string changeState(Process process, States oldState, States newState, int timer)
+        {
+            oldState = process.state;
+            process.state = newState;
+            var outputMessage = String.Format("{0},{1},{2}, {3} ", timer, process.Pid, oldState, process.state);
+            return outputMessage;
+            
         }
+
+
+    }
 }

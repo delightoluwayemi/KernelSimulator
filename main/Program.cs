@@ -40,22 +40,12 @@ namespace KernelSimulator
             }
             processCount = processes.Count;
             return processes;
-        }/*
-        public void changeState(Process process, States oldState, States newState){
-            switch (oldState){
-                case States.NEW:
-                process.state = States.READY; //newState
-                kernel.readyList.Add(process);
-            }
-            var outputMessage = String.Format("{0},{1},{2}, {3} ",kernel.timer, process.Pid, oldState, process.state);
-            outputLog.Add(outputMessage);
-        }*/
-
+        }
         static void Main(string[] args)
         {
             var terminatedCount = 0;
+            var path = @"test_files/test_case_1.csv";
 
-            var path = @"/test_files/test_case_1.csv";
             var kernel = new Kernel();
             kernel.loadProcess(path);
             /*foreach (var process in kernel.processes)
@@ -81,11 +71,8 @@ namespace KernelSimulator
                 {
                     if (kernel.timer == process.ArrivalTime)
                     {
-                        var oldState = process.state;
-                        process.state = States.READY;
+                        outputLog.Add(process.changeState(process, process.state, States.READY, kernel.timer));
                         kernel.readyQueue.Enqueue(process);
-                        var outputMessage = String.Format("{0},{1},{2}, {3} ",kernel.timer, process.Pid, oldState, process.state);
-                        outputLog.Add(outputMessage);
                     }
                 }
 
@@ -94,12 +81,9 @@ namespace KernelSimulator
                 {
                     if (kernel.waitingList[i].waitingTime == kernel.waitingList[i].IoDuration)
                     {
-                        var oldState = kernel.waitingList[i].state;
-                        kernel.waitingList[i].state = States.READY;
+                        outputLog.Add(kernel.waitingList[i].changeState(kernel.waitingList[i], kernel.waitingList[i].state, States.READY, kernel.timer));
                         kernel.readyQueue.Enqueue(kernel.waitingList[i]);
-                        var outputMessage = String.Format("{0},{1},{2}, {3} ", kernel.timer, kernel.waitingList[i].Pid, oldState, kernel.waitingList[i].state);
                         kernel.waitingList.Remove(kernel.waitingList[i]);
-                        outputLog.Add(outputMessage);
                     }
                     else
                     {
@@ -114,11 +98,8 @@ namespace KernelSimulator
                     {
                         if (process.TotalCPUTime == process.cpuRunTIme)
                         {
-                            var oldState = process.state;
-                            process.state = States.TERMINATED;
+                            outputLog.Add(process.changeState(process, process.state, States.TERMINATED, kernel.timer));
                             kernel.terminatedList.Add(process);
-                            var outputMessage = String.Format("{0},{1},{2}, {3}, {4} ", kernel.timer, process.Pid, oldState, process.state, process.TotalCPUTime);
-                            outputLog.Add(outputMessage);
                             kernel.processRunning = false;
                             terminatedCount++;
                         }
@@ -127,11 +108,8 @@ namespace KernelSimulator
                         {
                             if ((process.cpuRunTIme > 0) && (process.cpuRunTIme % process.IoFrequency == 0))
                             {
-                                var oldState = process.state;
-                                process.state = States.WAITING;
+                                outputLog.Add(process.changeState(process, process.state, States.WAITING, kernel.timer));
                                 kernel.waitingList.Add(process);
-                                var outputMessage = String.Format("{0},{1},{2}, {3} ", kernel.timer, process.Pid, oldState, process.state);
-                                outputLog.Add(outputMessage);
                                 kernel.processRunning = false;
                             }
                         }
@@ -152,16 +130,13 @@ namespace KernelSimulator
                     {
                         var runningProcess = kernel.readyQueue.Peek();
 
-                        //idea was to match the process in the ready queue and then changs its state in the process queue
+                        //idea was to match the process in the ready queue and then change its state in the process queue
                         foreach (var process in kernel.processes)
                         {
                             if (process == runningProcess)
                             {
                                 kernel.processRunning = true;
-                                var oldState = process.state;
-                                process.state = States.RUNNING;
-                                var outputMessage = String.Format("{0},{1},{2}, {3} ", kernel.timer, process.Pid, oldState, process.state);
-                                outputLog.Add(outputMessage);
+                                outputLog.Add(process.changeState(process, process.state, States.RUNNING, kernel.timer));
                             }
                         }
                         kernel.readyQueue.Dequeue();
