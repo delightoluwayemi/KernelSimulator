@@ -17,7 +17,7 @@ namespace KernelSimulator
         static void Main(string[] args)
         {
             var terminatedCount = 0;
-            var path = @"/Users/bamideleoluwayemi/Documents/Documents - Bamidele’s MacBook Pro/allThingsCode/C#/KernelSimulator/test_files/test_case_1.csv";
+            var path = @"/test_files/test_case_1.csv";
 
             var kernel = new Kernel();
             kernel.loadProcess(path);
